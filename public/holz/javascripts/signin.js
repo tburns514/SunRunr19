@@ -7,7 +7,7 @@ function signinSuccess(data, textSatus, jqXHR) {
 }
 
 function signinError(jqXHR, textStatus, errorThrown) {
-   // TODO
+  // TODO
 }
 
 // Handle authentication on page load
