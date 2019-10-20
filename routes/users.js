@@ -1,9 +1,25 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
+let User = require("../models/users");
+let Device = require("../models/device");
+let fs = require('fs');
+let bcrypt = require("bcrypt");
+let jwt = require("jwt-simple");
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('Coming soon');
+/* Authenticate user */
+var secret = fs.readFileSync(__dirname + '/../../jwtkey').toString();
+
+router.post('/signin', function(req, res, next) {
+   res.status(401).json({success : false, error : "Not implemented yet."});         
+});
+
+/* Register a new user */
+router.post('/register', function(req, res, next) {
+   res.status(401).json({success : false, error : "Not implemented yet."});         
+});
+
+router.get("/account" , function(req, res) {
+   res.status(401).json({success : false, error : "Not implemented yet."});         
 });
 
 module.exports = router;
