@@ -12,5 +12,5 @@ function signinError(jqXHR, textStatus, errorThrown) {
 
 // Handle authentication on page load
 $(function() {  
-  // TODO
+  // TODO 
 });
