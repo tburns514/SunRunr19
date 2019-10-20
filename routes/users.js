@@ -3,7 +3,7 @@ let router = express.Router();
 let User = require("../models/users");
 let Device = require("../models/device");
 let fs = require('fs');
-let bcrypt = require("bcrypt");
+let bcrypt = require("bcryptjs");
 let jwt = require("jwt-simple");
 
 /* Authenticate user */
