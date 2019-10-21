@@ -12,24 +12,25 @@ function accountInfoError(jqXHR, textStatus, errorThrown) {
 
 // Registers the specified device with the server.
 function registerDevice() {
-    $.ajax({
-        url: '/devices/register',
-        type: 'POST',
-        headers: { 'x-auth': window.localStorage.getItem("authToken") },   
-        data: { deviceId: $("#deviceId").val() }, 
-        responseType: 'json',
-        success: function (data, textStatus, jqXHR) {
-           // Add new device to the device list
-           $("#addDeviceForm").before("<li class='collection-item'>ID: " +
-           $("#deviceId").val() + ", APIKEY: " + data["apikey"] + "</li>")
-           hideAddDeviceForm();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            let response = JSON.parse(jqXHR.responseText);
-            $("#error").html("Error: " + response.message);
-            $("#error").show();
-        }
-    }); 
+  $.ajax({
+    url: '/devices/register',
+    type: 'POST',
+    headers: { 'x-auth': window.localStorage.getItem("authToken") },  
+    contentType: 'application/json',
+    data: JSON.stringify({ deviceId: $("#deviceId").val() }), 
+    dataType: 'json'
+   })
+     .done(function (data, textStatus, jqXHR) {
+       // Add new device to the device list
+       $("#addDeviceForm").before("<li class='collection-item'>ID: " +
+       $("#deviceId").val() + ", APIKEY: " + data["apikey"] + "</li>")
+       hideAddDeviceForm();
+     })
+     .fail(function(jqXHR, textStatus, errorThrown) {
+       let response = JSON.parse(jqXHR.responseText);
+       $("#error").html("Error: " + response.message);
+       $("#error").show();
+     }); 
 }
 
 // Show add device form and hide the add device button (really a link)
