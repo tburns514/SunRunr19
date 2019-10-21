@@ -1,18 +1,5 @@
 let map = null;
 
-function sendReqForAccountInfo() {
-   // TODO
-}
-
-function accountInfoSuccess(data, textSatus, jqXHR) {
-   // TODO
-}
-
-function accountInfoError(jqXHR, textStatus, errorThrown) {
-   // TODO
-}
-
-
 function getRecentPotholes() {
    // TODO
 }
