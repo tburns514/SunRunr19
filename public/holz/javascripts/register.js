@@ -6,7 +6,7 @@ function sendRegisterRequest() {
   
   // Check to make sure the passwords match
   // FIXME: Check to ensure strong password 
-  if(password != passwordConfirm) {
+  if (password != passwordConfirm) {
     $('#ServerResponse').html("<span class='red-text text-darken-2'>Passwords do not match.</span>");
     $('#ServerResponse').show();
     return;
@@ -24,7 +24,7 @@ function sendRegisterRequest() {
 }
 
 function registerSuccess(data, textSatus, jqXHR) {
-  if( data.success ) {  
+  if (data.success) {  
     window.location = "index.html";
   }
   else {
@@ -34,7 +34,7 @@ function registerSuccess(data, textSatus, jqXHR) {
 }
 
 function registerError(jqXHR, textStatus, errorThrown) {
-  if( jqXHR.statusCode == 404) {
+  if (jqXHR.statusCode == 404) {
     $('#ServerResponse').html("<span class='red-text text-darken-2'>Server could not be reached.</p>");
     $('#ServerResponse').show();
   }
