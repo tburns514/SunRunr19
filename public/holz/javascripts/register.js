@@ -23,7 +23,7 @@ function sendRegisterRequest() {
     .fail(registerError);
 }
 
-function registerSuccess(data, textSatus, jqXHR) {
+function registerSuccess(data, textStatus, jqXHR) {
   if (data.success) {  
     window.location = "index.html";
   }
