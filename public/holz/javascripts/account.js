@@ -1,13 +1,43 @@
 function sendReqForAccountInfo() {
-  // TODO
+  $.ajax({
+    url: '/users/account',
+    type: 'GET',
+    headers: { 'x-auth': window.localStorage.getItem("authToken") },
+    dataType: 'json'
+  })
+    .done(accountInfoSuccess)
+    .fail(accountInfoError);
 }
 
 function accountInfoSuccess(data, textSatus, jqXHR) {
-  // TODO
+  $("#email").html(data.email);
+  $("#fullName").html(data.fullName);
+  $("#lastAccess").html(data.lastAccess);
+  $("#main").show();
+  
+  // Add the devices to the list before the list item for the add device button (link)
+  for (var device of data.devices) {
+    $("#addDeviceForm").before("<li class='collection-item'>ID: " +
+      device.deviceId + ", APIKEY: " + device.apikey + 
+      " <button id='ping-" + device.deviceId + "' class='waves-effect waves-light btn'>Ping</button> " +
+      " </li>");
+    $("#ping-"+device.deviceId).click(function(event) {
+      pingDevice(event, device.deviceId);
+    });
+  }
 }
 
 function accountInfoError(jqXHR, textStatus, errorThrown) {
-  // TODO
+  // If authentication error, delete the authToken 
+  // redirect user to sign-in page (which is index.html)
+  if( jqXHR.status === 401 ) {
+    window.localStorage.removeItem("authToken");
+    window.location.replace("index.html");
+  } 
+  else {
+    $("#error").html("Error: " + status.message);
+    $("#error").show();
+  } 
 }
 
 // Registers the specified device with the server.
@@ -35,31 +65,31 @@ function registerDevice() {
 
 // Show add device form and hide the add device button (really a link)
 function showAddDeviceForm() {
-   $("#deviceId").val("");           // Clear the input for the device ID
-   $("#addDeviceControl").hide();    // Hide the add device link
-   $("#addDeviceForm").slideDown();  // Show the add device form
+  $("#deviceId").val("");        // Clear the input for the device ID
+  $("#addDeviceControl").hide();   // Hide the add device link
+  $("#addDeviceForm").slideDown();  // Show the add device form
 }
 
 // Hides the add device form and shows the add device button (link)
 function hideAddDeviceForm() {
-   $("#addDeviceControl").show();  // Hide the add device link
-   $("#addDeviceForm").slideUp();  // Show the add device form
-   $("#error").hide();
+  $("#addDeviceControl").show();  // Hide the add device link
+  $("#addDeviceForm").slideUp();  // Show the add device form
+  $("#error").hide();
 }
 
 // Handle authentication on page load
 $(function() {
-   // If there's no authToekn stored, redirect user to 
-   // the sign-in page (which is index.html)
-   if (!window.localStorage.getItem("authToken")) {
-      window.location.replace("index.html");
-   }
-   else {
-      sendReqForAccountInfo();
-   }
-   
-   // Register event listeners
-   $("#addDevice").click(showAddDeviceForm);
-   $("#registerDevice").click(registerDevice);   
-   $("#cancel").click(hideAddDeviceForm);   
+  // If there's no authToekn stored, redirect user to 
+  // the sign-in page (which is index.html)
+  if (!window.localStorage.getItem("authToken")) {
+    window.location.replace("index.html");
+  }
+  else {
+    sendReqForAccountInfo();
+  }
+  
+  // Register event listeners
+  $("#addDevice").click(showAddDeviceForm);
+  $("#registerDevice").click(registerDevice);  
+  $("#cancel").click(hideAddDeviceForm);  
 });
