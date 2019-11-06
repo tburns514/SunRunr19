@@ -102,7 +102,7 @@ router.post("/hit", function(req, res) {
              // New pothole found
              else {
                  // Create a new pothole and save the pothole to the database
-                 let pothole = new Pothole({
+                 var pothole = new Pothole({
                      loc: [req.body.longitude, req.body.latitude],
                      totalHits: 1,
                      lastReported: Date.now(),
