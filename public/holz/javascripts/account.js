@@ -53,7 +53,12 @@ function registerDevice() {
      .done(function (data, textStatus, jqXHR) {
        // Add new device to the device list
        $("#addDeviceForm").before("<li class='collection-item'>ID: " +
-       $("#deviceId").val() + ", APIKEY: " + data["apikey"] + "</li>")
+       $("#deviceId").val() + ", APIKEY: " + data["apikey"] + 
+         " <button id='ping-" + $("#deviceId").val() + "' class='waves-effect waves-light btn'>Ping</button> " +
+         "</li>");
+       $("#ping-"+$("#deviceId").val()).click(function(event) {
+         pingDevice(event, device.deviceId);
+       });
        hideAddDeviceForm();
      })
      .fail(function(jqXHR, textStatus, errorThrown) {
@@ -61,6 +66,24 @@ function registerDevice() {
        $("#error").html("Error: " + response.message);
        $("#error").show();
      }); 
+}
+
+function pingDevice(event, deviceId) {
+   $.ajax({
+        url: '/devices/ping',
+        type: 'POST',
+        headers: { 'x-auth': window.localStorage.getItem("authToken") },   
+        data: { 'deviceId': deviceId }, 
+        responseType: 'json',
+        success: function (data, textStatus, jqXHR) {
+            console.log("Pinged.");
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            var response = JSON.parse(jqXHR.responseText);
+            $("#error").html("Error: " + response.message);
+            $("#error").show();
+        }
+    }); 
 }
 
 // Show add device form and hide the add device button (really a link)
