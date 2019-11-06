@@ -33,7 +33,7 @@ function displayMostRecentPothole(data, textSatus, jqXHR) {
    // Create a map centered at the most recent pothole location
    let uluru = {lat: latitude, lng: longitude};
    let map = new google.maps.Map(document.getElementById('map'), {
-	   zoom: 9,
+	   zoom: 10,
 	   center: uluru
 	});
 	    
