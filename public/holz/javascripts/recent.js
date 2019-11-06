@@ -24,7 +24,7 @@ function displayMostRecentPothole(data, textSatus, jqXHR) {
 	   let longitude = data.potholes[data.potholes.length-1].longitude;
 		
       // Add descriptive text of the pothole recently reported 
-      potholeReport = date.potholes.length +
+      potholeReport = data.potholes.length +
 	                  " potholes have been reported in the last three days. The most recent pothole (shown above) was hit " +
 	                  data.potholes[data.potholes.length-1].totalHits + " times.";
    }
