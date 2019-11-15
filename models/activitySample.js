@@ -7,7 +7,7 @@ var WeatherSchema = new db.Schema({
 var activitySampleSchema = new db.Schema({
     type:         String,
     num:          Number,
-    weather:      WeatherSchema
+    weather:      WeatherSchema,
     longitude:    Number,
     latitude:     Number,
     speed:        Number,

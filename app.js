@@ -13,6 +13,8 @@ var usersRouter = require('./routes/users');
 var devicesRouter = require('./routes/devices');
 var potholesRouter = require('./routes/potholes');
 
+var activityRouter = require('./routes/activity');
+
 var app = express();
 
 // view engine setup
@@ -49,6 +51,8 @@ app.use('/users', usersRouter);
 app.use('/devices', devicesRouter);
 app.use('/potholes', potholesRouter);
 app.use('/photon', photonRouter);
+
+app.use('/activity',activityRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
