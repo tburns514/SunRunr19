@@ -48,6 +48,7 @@ router.get('/status/:devid', function(req, res, next) {
 });
 
 router.post('/register', function(req, res, next) {
+	console.log("1");
   let responseJson = {
     registered: false,
     message : "",
@@ -58,6 +59,8 @@ router.post('/register', function(req, res, next) {
   
   // Ensure the request includes the deviceId parameter
   if( !req.body.hasOwnProperty("deviceId")) {
+    console.log("2");
+
     responseJson.message = "Missing deviceId.";
     return res.status(400).json(responseJson);
   }
@@ -66,11 +69,21 @@ router.post('/register', function(req, res, next) {
     
   // If authToken provided, use email in authToken 
   if (req.headers["x-auth"]) {
+	console.log("3");
+
     try {
+	console.log("4");
+
       let decodedToken = jwt.decode(req.headers["x-auth"], secret);
+console.log("5");
+
       email = decodedToken.email;
+console.log("6");
+
     }
     catch (ex) {
+console.log("7");
+
       responseJson.message = "Invalid authorization token.";
       return res.status(400).json(responseJson);
     }

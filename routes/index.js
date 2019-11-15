@@ -3,8 +3,13 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'ECE 413/513 Fall 2019' });
+  res.render('sunrunrSplashPage', { title: 'SunRunr' });
 });
+/* GET Lysecky home page. */
+router.get('/prof', function(req, res, next) {
+  res.render('index', { title: 'ECESERVER' });
+});
+
 
 router.get("/shipping", function(req, res, next) {
 	// Shipping rates for various carries.                                                                                          
