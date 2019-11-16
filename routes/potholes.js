@@ -129,6 +129,7 @@ router.post("/hit", function(req, res) {
 // GET: Returns all potholes first reported in the previous specified number of days
 // Authentication: Token. A user must be signed in to access this endpoint
 router.get("/recent/:days", function(req, res) {
+console.log("get request to /recent");
     let days = req.params.days;
     
     let responseJson = {
