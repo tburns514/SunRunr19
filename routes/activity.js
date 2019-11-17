@@ -5,6 +5,7 @@ let jwt = require("jwt-simple");
 let Device = require("../models/device");
 let Activity = require("../models/activity");
 let User = require("../models/users");
+let request = require('request');
 
 // Secret key for JWT
 let secret = fs.readFileSync(__dirname + '/../../jwtkey').toString();
@@ -51,10 +52,10 @@ router.post("/record", function(req, res) {
   //      return res.status(201).send(JSON.stringify(responseJson));
  //   }
     
-    if( !req.body.hasOwnProperty("type") ) {
-        responseJson.message = "Request missing type parameter.";
-        return res.status(201).send(JSON.stringify(responseJson));
-    }
+    //if( !req.body.hasOwnProperty("type") ) {
+   //     responseJson.message = "Request missing type parameter.";
+  //      return res.status(201).send(JSON.stringify(responseJson));
+ //   }
     
    // if( !req.body.hasOwnProperty("num") ) {
   //      responseJson.message = "Request missing num parameter.";
@@ -76,8 +77,14 @@ router.post("/record", function(req, res) {
         responseJson.message = "Request missing userEmail parameter.";
         return res.status(201).send(JSON.stringify(responseJson));
     }
-
-
+        //change lat and lon to come from device
+	request({
+       method: "GET",
+       uri: "http://api.openweathermap.org/data/2.5/weather?lat=32.19&lon=-110.97&units=imperial&appid=092b2e289298b368fb3c48b8b747b8af",
+       
+    },function(err, res){
+		console.log(res.body);
+	});
 
 
 
