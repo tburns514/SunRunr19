@@ -16,7 +16,7 @@ function displayActivities(data, textSatus, jqXHR) {
 	for(let activity of data.activities){
 		listItems+= 
 		`<li class="collection-item teal lighten-5">
-		<div><b>Activity:</b> ${activity.type}<a href="activityDetail.html" class="secondary-content"><i class="material-icons">info_outline</i></a></div>
+		<div><b> Activity <span id = "activityNum">${activity.num}</span>:</b> ${activity.type}<a href="activityDetail.html" class="secondary-content"><i class="material-icons">info_outline</i></a></div>
 		<li class="collection-item grey lighten-4"><div><b>Date:</b> ${activity.date}</div></li>
 		<li class="collection-item grey lighten-4"><div><b>Duration:</b> (${activity.start}-${activity.end})</div></li>
 		<li class="collection-item grey lighten-4"><div><b>Calories Burned:</b> Decide calculation</div></li>

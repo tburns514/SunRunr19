@@ -187,7 +187,8 @@ router.get("/summary/:days", function(req, res) {
 					start: a.start,
 					end: a.end,
 					uv: a.uv,
-					weather: {temp: 78, humidity: 5}
+					weather: {temp: 78, humidity: 5},
+					num: a.num
                     
                 });
             }
