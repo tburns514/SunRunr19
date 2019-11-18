@@ -5,11 +5,11 @@ var WeatherSchema = new db.Schema({
         windSpeed:  Number
 });
 var activitySampleSchema = new db.Schema({
+    start:        {type: Date, default: Date(0)},
     longitude:    Number,
     latitude:     Number,
     speed:        Number,
     uv:           Number,
-    submitTime:   { type: Date, default: Date.now }
     
 });
 
