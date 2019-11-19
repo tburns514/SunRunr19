@@ -199,4 +199,67 @@ router.get("/summary/:days", function(req, res) {
 });
 
 
+router.get("/detail/:number", function(req, res) {
+        console.log("in /detail get function");
+        console.log(req.params);
+    //console.log("ID FROM QUEREY "+id);
+    console.log("Breaking at responseJson...");
+        let responseJson = {
+      samples: [],
+    };
+    console.log("Before authentication");
+    if (authenticateRecentEndpoint) {
+        var decodedToken = authenticateAuthToken(req);
+        if (!decodedToken) {
+            responseJson.success = false;
+            responseJson.message = "Authentication failed";
+            return res.status(401).json(responseJson);
+        }
+    }
+        console.log("Before activitesQuery");
+    // Find all potholes reported in the spcified number of days
+    let activitiesQuery = Activity.find({
+      "num":Number(req.params.number),
+      "userEmail": decodedToken.email
+    });    
+    activitiesQuery.exec({}, function(err, activities) {
+        if (err) {
+            responseJson.success = false;
+            responseJson.message = "Error accessing db.";
+            return res.status(200).send(JSON.stringify(responseJson));
+        }
+        else { 
+                console.log(activities.length);
+            for (let a of activities) {
+                console.log(a);
+                for (let sample of a.samples){
+                console.log("in sample loop");
+                console.log(sample);
+                responseJson.samples.push({
+                          start:sample.start,
+                          longitude:sample.longitude,
+                          latitude:sample.latitude,
+                          speed:sample.speed,
+                          uv:sample.uv
+                });
+                }
+                if(a.samples.length == 0){
+                        responseJson.samples.push({
+                                start:0,
+                                longitude:0,
+                                latitude:0,
+                                speed:0,
+                                uv:0
+
+                        });
+                }
+            }
+                console.log("BREAKING HERE");
+                console.log(JSON.stringify(responseJson));
+            return res.status(200).send(JSON.stringify(responseJson));
+        }
+    });
+});
+
+
 module.exports = router;
